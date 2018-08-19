@@ -1,0 +1,16 @@
+tài liệu https://medium.com/@sevcsik/authentication-using-https-client-certificates-3c9d270e8326
+-server key goi la cert
+	openssl req -x509 -newkey rsa:4096 -keyout server_key.pem -out server_cert.pem -nodes -days 365 -subj "/CN=localhost/O=Client\ Certificate\ Demo"
+-alice key goi la csr
+	openssl req -newkey rsa:4096 -keyout alice_key.pem -out alice_csr.pem -nodes -days 365 -subj "/CN=Alice"
+-2 file pem giong nhau, bao mat
+============================
+dang ky len CA: server lay alice csr + cert va key của server . accept = thêm 1 file alice cert.pem .
+	openssl x509 -req -in ../alice_csr.pem -CA server_cert.pem -CAkey server_key.pem -out alice_cert.pem -set_serial 01 -days 365
+=============================
+Client sau đó: lấy về alice_cert.pem + file pem (private của mình)
+chạy:
+	$ openssl pkcs12 -export -clcerts -in alice_cert.pem -inkey alice_key.pem -out alice.p12
+	hoặc filefox:
+	Preferences -> Advanced -> View Certificates -> Import
+
