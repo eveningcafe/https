@@ -6,7 +6,7 @@ tài liệu https://medium.com/@sevcsik/authentication-using-https-client-certif
 -2 file pem giong nhau, bao mat
 ============================
 dang ky len CA: server lay alice csr + cert va key của server . accept = thêm 1 file alice cert.pem .
-	openssl x509 -req -in ../alice_csr.pem -CA server_cert.pem -CAkey server_key.pem -out alice_cert.pem -set_serial 01 -days 365
+	openssl x509 -req -in alice_csr.pem -CA server_cert.pem -CAkey server_key.pem -out alice_cert.pem -set_serial 01 -days 365
 =============================
 Client sau đó: lấy về alice_cert.pem + file pem (private của mình)
 chạy:
